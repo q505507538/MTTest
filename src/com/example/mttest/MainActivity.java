@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 public class MainActivity extends Activity {
+	private static final String TAG = "MainActivity";
 	private MTBLEManager mMTBLEManager;
 	private MTBLEMBLE mBle;
 
@@ -84,7 +85,7 @@ public class MainActivity extends Activity {
 
 	private void initBLE() {
 		if (android.os.Build.VERSION.SDK_INT < 18) {
-			Toast.makeText(getApplicationContext(), "你out了，系统尽然还没有到android 4.3", Toast.LENGTH_LONG).show();
+			Toast.makeText(MainActivity.this, "你out了，系统尽然还没有到android 4.3", Toast.LENGTH_LONG).show();
 			return;
 		}
 		mMTBLEManager = MTBLEManager.getInstance();
@@ -256,7 +257,7 @@ public class MainActivity extends Activity {
 			return null;
 		// 显示
 		if (dis_flag) {
-			Toast.makeText(getApplicationContext(), "发送" + tmp_str + "成功", Toast.LENGTH_SHORT).show();
+			Toast.makeText(MainActivity.this, "发送" + tmp_str + "成功", Toast.LENGTH_SHORT).show();
 		}
 
 		return write_msg_byte;
@@ -312,18 +313,15 @@ public class MainActivity extends Activity {
 
 	// 显示接收数据和命令
 	private boolean disDatas(final BluetoothGattCharacteristic data_char) {
-		
-		Toast.makeText(getApplicationContext(), "正在接收数据", Toast.LENGTH_SHORT).show();
-		
 		handl.post(new Runnable() {
 			@Override
 			public void run() {
 				switch (1) {
 				case 0: // String
-					Toast.makeText(getApplicationContext(), data_char.getStringValue(0), Toast.LENGTH_SHORT).show();
+					Toast.makeText(MainActivity.this, data_char.getStringValue(0), Toast.LENGTH_SHORT).show();
 					break;
 				case 1: // 16进制
-					Toast.makeText(getApplicationContext(), Helpful.MYBytearrayToString(data_char.getValue()), Toast.LENGTH_SHORT).show();
+					Toast.makeText(MainActivity.this, Helpful.MYBytearrayToString(data_char.getValue()), Toast.LENGTH_SHORT).show();
 					break;
 				case 2: // 10进制
 					int count = 0;
@@ -332,7 +330,7 @@ public class MainActivity extends Activity {
 						count *= 256;
 						count += (tmp_byte[tmp_byte.length - 1 - i] & 0xFF);
 					}
-					Toast.makeText(getApplicationContext(), "" + count, Toast.LENGTH_SHORT).show();
+					Toast.makeText(MainActivity.this, "" + count, Toast.LENGTH_SHORT).show();
 					break;
 				default:
 					break;
@@ -367,7 +365,7 @@ public class MainActivity extends Activity {
 						@Override
 						public void run() {
 							pd.dismiss();
-							Toast.makeText(getApplicationContext(), "连接失败", Toast.LENGTH_LONG).show();
+							Toast.makeText(MainActivity.this, "连接失败", Toast.LENGTH_LONG).show();
 						}
 
 					});
@@ -377,7 +375,7 @@ public class MainActivity extends Activity {
 						@Override
 						public void run() {
 							pd.dismiss();
-							Toast.makeText(getApplicationContext(), "连接成功", Toast.LENGTH_LONG).show();
+							Toast.makeText(MainActivity.this, "连接成功", Toast.LENGTH_LONG).show();
 						}
 
 					});
