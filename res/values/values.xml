@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="datafmts">
+        <item >S</item>
+        <item >16</item>
+        <item >10</item>
+    </string-array>
+    
+    <string-array name="autofmts">
+        <item >保持</item>
+        <item >递增</item>
+        <item >递减</item>
+    </string-array>
+</resources>
